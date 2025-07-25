@@ -150,7 +150,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               color: lightGrey,
                               textColor: black,
                               width: screenWidth,
-                              height: screenHeight * 0.0468,
+                              height: screenHeight * 0.0472,
                               onPressed:
                               model.isLoading
                                   ? null

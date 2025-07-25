@@ -20,7 +20,10 @@ class DatabaseServices {
   /// Get user >>>>>>>>>
   Future<AppUser> getUser(String id) async {
     try {
-      final snapshot = await firebaseFireStore.collection('AppUser').doc(id).get();
+      final snapshot = await firebaseFireStore
+          .collection('AppUser')
+          .doc(id)
+          .get();
 
       if (!snapshot.exists || snapshot.data() == null) {
         throw Exception('User data not found in Firestore.');
@@ -42,24 +45,24 @@ class DatabaseServices {
     } catch (e) {
       print('Exception@UpdateUserProfile=>$e');
     }
-
-    updateData(userId, weight,height, age, gender ) async {
-      try {
-        firebaseFireStore
-            .collection('AppUser')
-            .doc(userId)
-            .update({
-          'gender': gender,
-          'weight': weight,
-          'height': height,
-          'age':age,
-
-        });
-      } catch (e) {
-        print('Exception@UpdateUserProfile=>$e');
-      }
-
-    }
   }
 
+  Future<void> updateUserData(String userId,
+      double? weight,
+      double? height,
+      String? gender,) async {
+    try {
+      await firebaseFireStore
+          .collection('AppUser')
+          .doc(userId)
+          .update({
+        'gender': gender,
+        'weight': weight,
+        'height': height,
+      });
+      print("User data updated successfully");
+    } catch (e) {
+      print('Exception@updateUserData => $e');
+    }
+  }
 }

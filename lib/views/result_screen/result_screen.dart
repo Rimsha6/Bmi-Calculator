@@ -107,7 +107,7 @@ class ResultScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Container(
-                height: screenHeight * 0.10,
+                height: screenHeight * 0.12,
                 color: white,
                 child: Column(
                   children: [
@@ -138,6 +138,7 @@ class ResultScreen extends StatelessWidget {
               const SizedBox(height: 10),
               Container(
                 color: white,
+                height: screenHeight * 0.12,
                 child: Column(
                   children: [
                     Padding(

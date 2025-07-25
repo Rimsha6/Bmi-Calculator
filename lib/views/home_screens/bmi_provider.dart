@@ -2,6 +2,7 @@ import 'package:bmi_calculator/models/app_user.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/locator.dart';
+import '../../core/services/auth_services.dart';
 import '../../core/services/database_services.dart';
 
 
@@ -46,20 +47,22 @@ class BMIProvider extends ChangeNotifier {
     } else {
       _idealWeight = 45.5 + 0.9 * (height - 152);
     }
-
-    appUser.height = height;
-    print("Height: $height");
     appUser.weight = weight;
     print("Weight: $weight");
+    appUser.height = height;
+    print("Height: $height");
     appUser.gender = gender;
     print("Gender: $gender");
 
-    try {
-      final databaseServices = locator<DatabaseServices>();
-      await databaseServices.updateUserProfile(appUser);
-    } catch (e) {
-      print("Failed to update user BMI data: $e");
-    }
+    final authService = locator<AuthServices>();
+    final dbService = authService.databaseServices;
+    await dbService.updateUserData(
+      authService.appUser.appUserId!,
+      weight,
+      height,
+      gender,
+    );
+
 
     notifyListeners();
   }
